@@ -1,0 +1,161 @@
+:root {
+    --bg-color: #f9f9f9;
+    --text-color: #333;
+    --box-bg: #fff;
+    --entry-bg: #e0e0e0;
+    --border-color: #ccc;
+  }
+  
+  body.dark {
+    --bg-color: #121212;
+    --text-color: #f1f1f1;
+    --box-bg: #1e1e1e;
+    --entry-bg: #2c2c2c;
+    --border-color: #444;
+  }
+  
+  body {
+    margin: 0;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    padding: 20px;
+    font-family: 'Poppins', sans-serif;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  #toggleDarkMode {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--entry-bg);
+    color: var(--text-color);
+    cursor: pointer;
+  }
+  
+  h1 {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .timetable {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+    margin-bottom: 40px;
+  }
+  
+  .day {
+    background-color: var(--box-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 10px;
+    min-height: 150px;
+    transition: background-color 0.2s ease;
+  }
+  
+  .day h3 {
+    margin-top: 0;
+    font-size: 1.1em;
+    text-align: center;
+  }
+  
+  .day[data-day="Montag"] { background-color: #e3f2fd; }
+  .day[data-day="Dienstag"] { background-color: #e8f5e9; }
+  .day[data-day="Mittwoch"] { background-color: #fff3e0; }
+  .day[data-day="Donnerstag"] { background-color: #fce4ec; }
+  .day[data-day="Freitag"] { background-color: #ede7f6; }
+  .day[data-day="Samstag"] { background-color: #f3e5f5; }
+  
+  body.dark .day {
+    background-color: var(--box-bg) !important;
+  }
+  
+  .day.drag-over {
+    border: 2px dashed #2196f3;
+    background-color: #f1faff !important;
+  }
+  
+  .entry {
+    margin-bottom: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: var(--entry-bg);
+    position: relative;
+    cursor: move;
+    transition: all 0.2s ease;
+    color: var(--text-color);
+  }
+  
+  .entry:hover, .reminder-item:hover {
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    transform: scale(1.01);
+  }
+  
+  .entry input[type="text"] {
+    width: 100%;
+    border: none;
+    background: transparent;
+    padding: 4px;
+    color: inherit;
+  }
+  
+  .color-picker {
+    margin-top: 5px;
+    width: 100%;
+    border: none;
+    background: transparent;
+  }
+  
+  .delete-btn {
+    position: absolute;
+    top: 2px;
+    right: 5px;
+    background: #ff4d4d;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    font-size: 0.8em;
+    padding: 2px 6px;
+  }
+  
+  .reminders {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .reminders h2 {
+    text-align: center;
+  }
+  
+  .reminder-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .reminder-item {
+    background: var(--box-bg);
+    border: 1px solid var(--border-color);
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    cursor: move;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.2s ease;
+    color: var(--text-color);
+  }
+  
+  .reminder-input {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--box-bg);
+    color: var(--text-color);
+  }

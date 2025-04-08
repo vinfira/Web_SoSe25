@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stundenplan für Studenten</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <button id="toggleDarkMode">🌙 / ☀️</button>
+  <h1>Mein Studenten-Stundenplan</h1>
+
+  <div class="timetable" id="timetable">
+    <div class="day" data-day="Montag"><h3>Montag</h3></div>
+    <div class="day" data-day="Dienstag"><h3>Dienstag</h3></div>
+    <div class="day" data-day="Mittwoch"><h3>Mittwoch</h3></div>
+    <div class="day" data-day="Donnerstag"><h3>Donnerstag</h3></div>
+    <div class="day" data-day="Freitag"><h3>Freitag</h3></div>
+    <div class="day" data-day="Samstag"><h3>Samstag</h3></div>
+  </div>
+
+  <div class="reminders">
+    <h2>Erinnerungen</h2>
+    <ul class="reminder-list" id="reminderList"></ul>
+    <input class="reminder-input" id="reminderInput" type="text" placeholder="Neue Erinnerung hinzufügen...">
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
