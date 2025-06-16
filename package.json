@@ -1,0 +1,28 @@
+{
+  "name": "web_sose25-2",
+  "version": "1.0.0",
+  "description": "Hallo! Ich werde einen bearbeitbaren Kalender/Stundenplan mit wichtigen Randinformationen erstellen  - Kalender mit Zeitslots, in denen die Module/Fächer eingetragen werden können  - Möglichkeit, untendrunter eine Liste, in der Infos/Reminder eingefügt werden können, zB \"Achtung: GIS- Abgabe in 4 Tagen\"",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vinfira/Web_SoSe25.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/vinfira/Web_SoSe25/issues"
+  },
+  "homepage": "https://github.com/vinfira/Web_SoSe25#readme",
+  "dependencies": {
+    "body-parser": "^2.2.0",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "sqlite3": "^5.1.7"
+  }
+}

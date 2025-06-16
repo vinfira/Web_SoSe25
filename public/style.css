@@ -1,0 +1,167 @@
+body {
+  margin: 0;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  padding: 20px;
+  font-family: 'Poppins', sans-serif;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+h1, h2 {
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+button {
+  background-color: #007acc;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 14px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+
+button:hover {
+  background-color: #005f99;
+}
+
+.timetable {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+
+.day {
+  background-color: #f3f4f6;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  padding: 10px;
+  min-height: 220px;
+  transition: background 0.3s, border-color 0.3s;
+  position: relative;
+}
+
+.day h3 {
+  margin: 0 0 10px 0;
+  font-size: 16px;
+  text-align: center;
+  background-color: #007acc;
+  color: white;
+  padding: 5px 0;
+  border-radius: 6px;
+}
+
+/* Farben für einzelne Wochentage (optional verschieden) */
+.day[data-day="Montag"] h3    { background-color: #007acc; }
+.day[data-day="Dienstag"] h3  { background-color: #5c6ac4; }
+.day[data-day="Mittwoch"] h3  { background-color: #f18f01; }
+.day[data-day="Donnerstag"] h3{ background-color: #00a896; }
+.day[data-day="Freitag"] h3   { background-color: #9b5de5; }
+.day[data-day="Samstag"] h3   { background-color: #ef476f; }
+
+.day.drag-over {
+  background-color: #e0f7ff;
+  border: 2px dashed #007acc;
+}
+
+.entry {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #ccc;
+  padding: 6px;
+  margin-bottom: 6px;
+  border-radius: 6px;
+  transition: background-color 0.3s;
+}
+
+.entry input[type="text"] {
+  flex: 1;
+  margin: 0 6px;
+  padding: 4px;
+  border: none;
+  background: transparent;
+  font-size: 14px;
+}
+
+.color-picker {
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.delete-btn {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 2px 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+input[type="text"]#reminderInput {
+  width: 100%;
+  max-width: 500px;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.reminder-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #eeeeee;
+  padding: 6px 10px;
+  margin-bottom: 6px;
+  border-radius: 6px;
+  transition: background-color 0.3s;
+}
+
+/* Dark Mode */
+body.dark {
+  background-color: #1e1e1e;
+  color: #e0e0e0;
+}
+
+body.dark .day {
+  background-color: #2b2b2b;
+  border-color: #444;
+}
+
+body.dark .day h3 {
+  color: white;
+}
+
+body.dark .entry {
+  background-color: #444;
+  color: #fff;
+}
+
+body.dark .reminder-item {
+  background-color: #3a3a3a;
+}
+
+body.dark input[type="text"],
+body.dark input[type="text"]#reminderInput {
+  background-color: #333;
+  color: #fefefe;
+  border-color: #555;
+}
+
+body.dark button {
+  background-color: #4b8bfa;
+}
+
+body.dark button:hover {
+  background-color: #376fe0;
+}
