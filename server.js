@@ -1,86 +1,72 @@
-// server.js
+const http = require('http');
+const sqlite3 = require('sqlite3');
+const sqlite = require('sqlite');
 
-const express = require("express");
-const sqlite3 = require("sqlite3").verbose();
-const path = require("path");
-const fs = require("fs");
+const hostname = '127.0.0.1'; // localhost
+const port = 3000;
+const dbFilePath = 'Wochenplaner.db';
+let db;
 
-const app = express();
-const PORT = process.env.PORT || 3000;
-
-// ======================
-// 📁 SQLite-DB vorbereiten
-// ======================
-const dbFile = "./data.db";
-const db = new sqlite3.Database(dbFile);
-
-db.serialize(() => {
-  db.run(`
-    CREATE TABLE IF NOT EXISTS entries (
+async function startServer() {
+  db = await sqlite.open({
+    filename: dbFilePath,
+    driver: sqlite3.Database,
+  });
+  // Tabelle anlegen, falls nicht vorhanden
+  await db.run(`CREATE TABLE IF NOT EXISTS entries (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       type TEXT,
       day TEXT,
       content TEXT,
       color TEXT
-    )
-  `);
-});
-
-// ======================
-// ⚙️ Middleware
-// ======================
-app.use(express.static(path.join(__dirname, "public")));
-app.use(express.json());
-
-// ======================
-// 📦 API-Routen
-// ======================
-
-// Alle Einträge laden
-app.get("/api/entries", (req, res) => {
-  db.all("SELECT * FROM entries", (err, rows) => {
-    if (err) {
-      console.error(err);
-      res.status(500).json({ error: "Fehler beim Laden" });
-    } else {
-      res.json(rows);
-    }
+  )`);
+  server.listen(port, hostname, () => { // Server starten
+    console.log(`Server running at http://${hostname}:${port}/`);
   });
-});
+}
 
-// Eintrag speichern
-app.post("/api/entries", (req, res) => {
-  const { type, day, content, color } = req.body;
-  const stmt = db.prepare("INSERT INTO entries (type, day, content, color) VALUES (?, ?, ?, ?)");
-  stmt.run(type, day, content, color, function (err) {
-    if (err) {
-      console.error(err);
-      res.status(500).json({ error: "Fehler beim Speichern" });
-    } else {
-      res.json({ id: this.lastID });
+const server = http.createServer(async (request, response) => {
+    response.statusCode = 200;
+    response.setHeader('Access-Control-Allow-Origin', '*'); // bei CORS Fehler
+    response.setHeader('Access-Control-Allow-Headers', '*'); // bei CORS Fehler
+
+    let url = new URL(request.url || '', `http://${request.headers.host}`);
+    switch (url.pathname) {
+      case '/entry': {
+        switch (request.method) {
+          case 'GET':
+            let result;
+           
+    
+            result = await db.all('SELECT * FROM entries')
+            
+            response.setHeader('Content-Type', 'application/json');
+            response.write(JSON.stringify(result));
+            break;
+          case 'POST':
+            let jsonString = '';
+            request.on('data', data => {
+              jsonString += data;
+            });
+            request.on('end', async () => {
+              const entry = JSON.parse(jsonString); 
+              await db.run(
+                'INSERT OR REPLACE INTO entries VALUES (?, ?, ?, ?, ?)',
+                [entry.id, entry.type, entry.day, entry.content, entry.color]
+              );
+            });
+            break;
+        }
+        break;
+      }
+     case '/clearAll':
+       // await db.run('DELETE FROM entries');
+        break;
+      default:
+        response.statusCode = 404;
     }
-  });
-  stmt.finalize();
-});
+    response.end();
+  }
+);
 
-// Eintrag löschen
-app.delete("/api/entries/:id", (req, res) => {
-  const id = req.params.id;
-  const stmt = db.prepare("DELETE FROM entries WHERE id = ?");
-  stmt.run(id, function (err) {
-    if (err) {
-      console.error(err);
-      res.status(500).json({ error: "Fehler beim Löschen" });
-    } else {
-      res.json({ success: true });
-    }
-  });
-  stmt.finalize();
-});
-
-// ======================
-// 🌐 Server starten
-// ======================
-app.listen(PORT, () => {
-  console.log(`Server läuft auf http://localhost:${PORT}`);
-});
+startServer();

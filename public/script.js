@@ -10,19 +10,19 @@ let draggedItem = null;
 // ========================
 
 async function loadEntriesFromServer() {
-  const res = await fetch('/api/entries');
+  const res = await fetch('http://127.0.0.1:3000/entry');
   const data = await res.json();
   renderEntries(data);
 }
 
 async function saveEntryToServer(entry) {
-  const res = await fetch('/api/entries', {
+  const res = await fetch('http://127.0.0.1:3000/entry', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(entry)
   });
-  const result = await res.json();
-  return result.id;
+ // const result = await res.json();
+  // return result.id;
 }
 
 async function deleteEntryFromServer(id) {
